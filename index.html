@@ -15,22 +15,30 @@
                 vertical-align: middle;
                 padding-left: 15px;
             }
+            .head-accordion:hover {
+                background-color: rgb(120, 182, 107);
+                cursor: pointer;
+            }
+
             .content-accordion {
-                margin-top: 10px;
+                margin: 10px;
             }
             .buttons {
                 margin: 10px 10px;
+            }
+            .hidden {
+                display: none;
             }
         </style>
     </head>
     <body>
         <div id="myAccordion">
             <div class="buttons">
-                <button onclick="add()">Add panel</button>
-                <button onclick="remove()">Remove panel</button>
+                <button onclick="add()">Append panel</button>
+                <button onclick="remove()">Remove last panel</button>
             </div>
             <div class="head-accordion" onclick="toggle(this)"><h4>Panel 1</h4></div>
-            <div class="content-accordion">
+            <div class="content-accordion hidden">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
             </div>
         </div>
@@ -50,7 +58,7 @@
                 let newContentPanel = document.createElement("div");
                 newContentPanel.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
                 newContentPanel.classList.add("content-accordion");
-                newContentPanel.style.display = "none";
+                newContentPanel.classList.add("hidden");
                 myAccordion.insertBefore(newContentPanel, myAccordion.children[myAccordion.children - 1]);
             };
             
@@ -63,7 +71,7 @@
             };
 
             function toggle(e) {
-                e.nextElementSibling.style.display = e.nextElementSibling.style.display === "none" ? "" : "none";
+                e.nextElementSibling.classList.contains("hidden") ? e.nextElementSibling.classList.remove("hidden") : e.nextElementSibling.classList.add("hidden");
             }
         </script>
     </body>
