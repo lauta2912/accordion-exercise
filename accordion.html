@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            h4 {
+                margin: 0px;
+            }
+            .head-accordion {
+                height: 50px;
+                background-color: rgb(182, 241, 170);
+                line-height: 50px;
+                vertical-align: middle;
+                padding-left: 15px;
+            }
+            .content-accordion {
+                margin-top: 10px;
+            }
+            .buttons {
+                margin: 10px 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="myAccordion">
+            <div class="buttons">
+                <button onclick="add()">Add panel</button>
+                <button onclick="remove()">Remove panel</button>
+            </div>
+            <div class="head-accordion" onclick="toggle(this)"><h4>Panel 1</h4></div>
+            <div class="content-accordion">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </div>
+        </div>
+        <script>
+            function add() {
+                let myAccordion = document.getElementById("myAccordion");
+                let headPanels = document.getElementsByClassName("head-accordion");
+
+                let current = headPanels.length === 0 ? 1 : parseInt(headPanels[headPanels.length - 1].innerText.split(" ")[1], 10) + 1;
+                let newHeadPanel = document.createElement("div");
+
+                newHeadPanel.innerHTML = "<h4>Panel " + current + "</h4>";
+                newHeadPanel.classList.add("head-accordion");
+                newHeadPanel.onclick = function(e) { toggle(newHeadPanel) };
+                myAccordion.insertBefore(newHeadPanel, myAccordion.children[myAccordion.children - 1]);
+
+                let newContentPanel = document.createElement("div");
+                newContentPanel.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+                newContentPanel.classList.add("content-accordion");
+                newContentPanel.style.display = "none";
+                myAccordion.insertBefore(newContentPanel, myAccordion.children[myAccordion.children - 1]);
+            };
+            
+            function remove() {
+                let headPanels = document.getElementsByClassName("head-accordion");
+                if (headPanels.length === 0)
+                    return
+                headPanels.item(headPanels.length - 1).nextElementSibling.remove();
+                headPanels.item(headPanels.length - 1).remove();
+            };
+
+            function toggle(e) {
+                e.nextElementSibling.style.display = e.nextElementSibling.style.display === "none" ? "" : "none";
+            }
+        </script>
+    </body>
+</html>
